@@ -26,7 +26,15 @@ services:
     depends_on:
       - postgres
     image: jirayu1004za/preflight_project-backend:latest
-  
+  frontend:
+    container_name: frontend
+    build: .
+    ports:
+      - ${NGINX_PORT}:5175
+    environment:
+      - NGINX_PROXY=${NGINX_PROXY}
+      - NGINX_PORT=${NGINX_PORT}
+    image: pulom999/preflight_project-frontend:latest
 networks:
   g2-preflight_pf-net: # Check `docker network ls`
     external: true
